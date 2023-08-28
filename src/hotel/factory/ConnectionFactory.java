@@ -1,4 +1,4 @@
-package factory;
+package hotel.factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ public class ConnectionFactory {
 	
 	public Connection recuperarConexion() {
 		try {
-			System.out.println("Probando conexion!!");
+			//System.out.println("Probando conexion!!");
 			return this.datasource.getConnection();
 			
 		} catch (SQLException e) {

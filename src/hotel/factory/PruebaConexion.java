@@ -1,4 +1,4 @@
-package factory;
+package hotel.factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
