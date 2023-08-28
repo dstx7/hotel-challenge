@@ -4,14 +4,35 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 public class ConnectionFactory {
 	
-	public ConnectionFactory() throws SQLException {
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotel_alura?useTimeZone=true&serverTimeZone=UTC",
-			"root",
-			"admin");
+	private DataSource datasource;
 	
-	System.out.println("conexion con db");
-	con.close();
+	public ConnectionFactory() {
+		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/hotel_alura?useTimeZone=true&serverTimeZone=UTC");
+		comboPooledDataSource.setUser("root");
+		comboPooledDataSource.setPassword("admin");
+		
+		comboPooledDataSource.setMaxConnectionAge(2);
+		comboPooledDataSource.setMaxIdleTime(10);
+		
+		this.datasource = comboPooledDataSource;
 	}
+	
+	public Connection recuperarConexion() {
+		try {
+			System.out.println("Probando conexion!!");
+			return this.datasource.getConnection();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 }
