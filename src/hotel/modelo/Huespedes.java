@@ -12,14 +12,15 @@ public class Huespedes {
 	private String Telefono;
 	private Integer IdReserva;
 	
-	public Huespedes(String nombre, String apellido, Date fechaDeNacimiento, String nacionalidad, String telefono,
+	public Huespedes(Integer Id,String nombre, String apellido, Date fechaDeNacimiento, String nacionalidad, String telefono,
 			Integer idReserva) {
-		Nombre = nombre;
-		Apellido = apellido;
-		FechaDeNacimiento = fechaDeNacimiento;
-		Nacionalidad = nacionalidad;
-		Telefono = telefono;
-		IdReserva = idReserva;
+		this.Id = Id;
+		this.Nombre = nombre;
+		this.Apellido = apellido;
+		this.FechaDeNacimiento = fechaDeNacimiento;
+		this.Nacionalidad = nacionalidad;
+		this.Telefono = telefono;
+		this.IdReserva = idReserva;
 	}
 	
 	public Integer getId() {
