@@ -71,5 +71,46 @@ public class HuespedesDAO {
 		
 		return resultado;
 	}
+	
+	public void editar() {
+		ConnectionFactory connectionFactory = new ConnectionFactory();
+		Connection con = connectionFactory.recuperarConexion();
+		try {
+			PreparedStatement pstm = con.prepareStatement("UPDATE huespedes SET Nombre = ?,"
+					+ "Apellido = ?,"
+					+ "Fecha_de_nacimiento = ?,"
+					+ "Nacionalidad = ?,"
+					+ "Telefono = ? "
+					+ "WHERE Id = ?");
+			pstm.setString(1, "natalia");
+			pstm.setString(2, "garzon");
+			pstm.setString(3, "1999-11-29");
+			pstm.setString(4, "Colombia");
+			pstm.setString(5, "15555");
+			pstm.setInt(6, 4);
+			
+			pstm.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminar() {
+		ConnectionFactory connectionFactory = new ConnectionFactory();
+		Connection con = connectionFactory.recuperarConexion();
+		try {
+			PreparedStatement pstm = con.prepareStatement("DELETE FROM huespedes WHERE Id = ?");
+			pstm.setInt(1, 6);
+			
+			pstm.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 }
