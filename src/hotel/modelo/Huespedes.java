@@ -27,6 +27,10 @@ public class Huespedes {
 		return Id;
 	}
 	
+	public void setId(Integer Id) {
+		this.Id = Id;
+	}
+	
 	public String getNombre() {
 		return Nombre;
 	}
