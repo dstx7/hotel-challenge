@@ -1,6 +1,7 @@
 package hotel.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import hotel.factory.ConnectionFactory;
 import hotel.modelo.Huespedes;
 
 public class HuespedesDAO {
@@ -61,12 +61,9 @@ public class HuespedesDAO {
 				pstm.execute();
 				ResultSet resultSet = pstm.getResultSet();
 				while (resultSet.next()) {
-					resultado.add(new Huespedes(resultSet.getInt("Id"),
-							resultSet.getString("Nombre"),
-							resultSet.getString("Apellido"),
-							resultSet.getDate("Fecha_de_nacimiento"),
-							resultSet.getString("Nacionalidad"),
-							resultSet.getString("Telefono"),
+					resultado.add(new Huespedes(resultSet.getInt("Id"), resultSet.getString("Nombre"),
+							resultSet.getString("Apellido"), resultSet.getDate("Fecha_de_nacimiento"),
+							resultSet.getString("Nacionalidad"), resultSet.getString("Telefono"),
 							resultSet.getInt("Id_reserva")));
 				}
 			}
@@ -78,41 +75,69 @@ public class HuespedesDAO {
 		return resultado;
 	}
 
-	public void editar() {
-		ConnectionFactory connectionFactory = new ConnectionFactory();
-		Connection con = connectionFactory.recuperarConexion();
-		try {
-			PreparedStatement pstm = con.prepareStatement("UPDATE huespedes SET Nombre = ?," + "Apellido = ?,"
-					+ "Fecha_de_nacimiento = ?," + "Nacionalidad = ?," + "Telefono = ? " + "WHERE Id = ?");
-			pstm.setString(1, "natalia");
-			pstm.setString(2, "garzon");
-			pstm.setString(3, "1999-11-29");
-			pstm.setString(4, "Colombia");
-			pstm.setString(5, "15555");
-			pstm.setInt(6, 4);
+	public void editar(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono,
+			Integer idReserva, Integer Id) {
 
-			pstm.execute();
+		try {
+			String sql = "UPDATE huespedes SET Nombre = ?, Apellido = ?, Fecha_de_nacimiento = ?, Nacionalidad = ?, Telefono = ?, Id_reserva = ? WHERE Id = ?";
+			try (PreparedStatement pstm = con.prepareStatement(sql)) {
+				pstm.setString(1, nombre);
+				pstm.setString(2, apellido);
+				pstm.setDate(3, fechaNacimiento);
+				pstm.setString(4, nacionalidad);
+				pstm.setString(5, telefono);
+				pstm.setInt(6, idReserva);
+				pstm.setInt(7, Id);
+
+				pstm.execute();
+			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
-	public void eliminar() {
-		ConnectionFactory connectionFactory = new ConnectionFactory();
-		Connection con = connectionFactory.recuperarConexion();
-		try {
-			PreparedStatement pstm = con.prepareStatement("DELETE FROM huespedes WHERE Id = ?");
-			pstm.setInt(1, 6);
+	public void eliminar(Integer Id) {
 
-			pstm.execute();
+		try {
+			String sql = "DELETE FROM huespedes WHERE Id = ?";
+
+			try (PreparedStatement pstm = con.prepareStatement(sql)) {
+				pstm.setInt(1, Id);
+
+				pstm.execute();
+			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 
+	}
+
+	public List<Huespedes> buscarId(Integer id) {
+		List<Huespedes> resultado = new ArrayList<Huespedes>();
+		try {
+			String sql = "SELECT * FROM huespedes WHERE Id_reserva = ?";
+
+			try (PreparedStatement pstm = con.prepareStatement(sql)) {
+				pstm.setInt(1, id);
+
+				pstm.execute();
+
+				ResultSet resultSet = pstm.getResultSet();
+				while (resultSet.next()) {
+					resultado.add(new Huespedes(resultSet.getInt("Id"), resultSet.getString("Nombre"),
+							resultSet.getString("Apellido"), resultSet.getDate("Fecha_de_nacimiento"),
+							resultSet.getString("Nacionalidad"), resultSet.getString("Telefono"),
+							resultSet.getInt("Id_reserva")));
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultado;
 	}
 
 }
