@@ -12,7 +12,7 @@ public class HuespedesController {
 
 	private HuespedesDAO huespedesDAO;
 
-	public HuespedesController(HuespedesDAO huespedesDAO) {
+	public HuespedesController() {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		Connection con = connectionFactory.recuperarConexion();
 		this.huespedesDAO = new HuespedesDAO(con);

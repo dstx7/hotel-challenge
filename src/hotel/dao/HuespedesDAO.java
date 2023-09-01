@@ -79,7 +79,8 @@ public class HuespedesDAO {
 			Integer idReserva, Integer Id) {
 
 		try {
-			String sql = "UPDATE huespedes SET Nombre = ?, Apellido = ?, Fecha_de_nacimiento = ?, Nacionalidad = ?, Telefono = ?, Id_reserva = ? WHERE Id = ?";
+			String sql = "UPDATE huespedes SET Nombre = ?, Apellido = ?, Fecha_de_nacimiento = ?, Nacionalidad = ?, Telefono = ?, Id_reserva = ?"
+					+ " WHERE Id = ?";
 			try (PreparedStatement pstm = con.prepareStatement(sql)) {
 				pstm.setString(1, nombre);
 				pstm.setString(2, apellido);
