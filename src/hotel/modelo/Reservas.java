@@ -10,6 +10,14 @@ public class Reservas {
 	private String Valor;
 	private String FormaPago;
 	
+	public Reservas( Date fechaEntrada, Date fechaSalida, String valor, String formaPago) {
+		this.Id = Id;
+		this.FechaEntrada = fechaEntrada;
+		this.FechaSalida = fechaSalida;
+		this.Valor = valor;
+		this.FormaPago = formaPago;
+	}
+	
 	public Reservas(Integer Id, Date fechaEntrada, Date fechaSalida, String valor, String formaPago) {
 		this.Id = Id;
 		this.FechaEntrada = fechaEntrada;

@@ -18,23 +18,23 @@ public class ReservasController {
 		this.reservasDAO = new ReservasDAO(con);
 	}
 	
-	private void guardar(Reservas reservas) {
+	public void guardar(Reservas reservas) {
 		this.reservasDAO.guardar(reservas);
 	}
 	
-	private List<Reservas> listar() {
+	public List<Reservas> listar() {
 		return this.reservasDAO.listar();
 	}
 	
-	private List<Reservas> listarId(Integer Id) {
+	public List<Reservas> listarId(Integer Id) {
 		return this.reservasDAO.listarId(Id);
 	}
 	
-	private void editar(Integer Id,Date FechaEntrada,Date FechaSalida,String Valor,String FormaPago) {
+	public void editar(Integer Id,Date FechaEntrada,Date FechaSalida,String Valor,String FormaPago) {
 		this.reservasDAO.editar(Id,FechaEntrada,FechaSalida,Valor,FormaPago );
 	}
 	
-	private void eliminar(Integer Id) {
+	public void eliminar(Integer Id) {
 		this.reservasDAO.eliminar(Id);
 		
 	}
